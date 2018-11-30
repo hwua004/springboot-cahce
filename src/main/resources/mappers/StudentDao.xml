@@ -13,4 +13,12 @@
         select * from student where id = #{value}
     </select>
 
+    <update id="updateStudent" parameterType="student">
+        update student set code = #{code} where id = #{id}
+    </update>
+
+    <delete id="delStudent" parameterType="int">
+        delete from student where id = #{value}
+    </delete>
+
 </mapper>

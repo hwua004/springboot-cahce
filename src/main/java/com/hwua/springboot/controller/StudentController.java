@@ -23,4 +23,20 @@ public class StudentController {
     }
 
 
+    @RequestMapping(value = "/student/update/{id}",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String update(@PathVariable("id") int id){
+        Student student= new Student();
+        student.setId(id);
+        student.setCode(Math.random()+"");
+        Student stu=studentService.updateStudent(student);
+        return JSON.toJSONString(stu);
+    }
+
+    @RequestMapping(value = "/student/del/{id}",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String del(@PathVariable("id") int id){
+        return studentService.delStudent(id)+"";
+    }
+
 }

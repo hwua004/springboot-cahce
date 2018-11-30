@@ -4,7 +4,10 @@ import com.hwua.springboot.dao.StudentDao;
 import com.hwua.springboot.entity.Student;
 import com.hwua.springboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.concurrent.ConcurrentMapCache;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,11 +22,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @CacheEvict(value="stu",key = "'stu-'+#id")
     public int delStudent(int id) {
         return studentDao.delStudent(id);
     }
 
     @Override
+    @CachePut(value = "stu",key="'stu-'+#stu.id")
     public Student updateStudent(Student stu) {
         studentDao.updateStudent(stu);
         return stu;
